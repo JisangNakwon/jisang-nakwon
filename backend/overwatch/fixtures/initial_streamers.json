@@ -1,0 +1,98 @@
+[
+  {
+    "model": "overwatch.streamer",
+    "pk": 1,
+    "fields": {
+      "name": "이지상:)",
+      "avatar": "🏝️",
+      "main_pos": "딜러",
+      "main_tier": "고2",
+      "main_most": ["트레이서", "겐지", "캐서디"],
+      "sub_pos": "힐러",
+      "sub_tier": "고1",
+      "sub_most": ["아나", "키리코", "모이라"],
+      "note": "",
+      "order": 1
+    }
+  },
+  {
+    "model": "overwatch.streamer",
+    "pk": 2,
+    "fields": {
+      "name": "낙원맨",
+      "avatar": "🌴",
+      "main_pos": "탱커",
+      "main_tier": "고1",
+      "main_most": ["라인하르트", "디바", "시그마"],
+      "sub_pos": "딜러",
+      "sub_tier": "중3",
+      "sub_most": ["파라", "애쉬", "리퍼"],
+      "note": "",
+      "order": 2
+    }
+  },
+  {
+    "model": "overwatch.streamer",
+    "pk": 3,
+    "fields": {
+      "name": "지상최강",
+      "avatar": "⚡",
+      "main_pos": "딜러",
+      "main_tier": "고3",
+      "main_most": ["한조", "위도우메이커", "애쉬"],
+      "sub_pos": "딜러",
+      "sub_tier": "고2",
+      "sub_most": ["에코", "소전", "겐지"],
+      "note": "",
+      "order": 3
+    }
+  },
+  {
+    "model": "overwatch.streamer",
+    "pk": 4,
+    "fields": {
+      "name": "힐러왕",
+      "avatar": "💚",
+      "main_pos": "힐러",
+      "main_tier": "중3",
+      "main_most": ["아나", "젠야타", "바티스트"],
+      "sub_pos": "힐러",
+      "sub_tier": "중2",
+      "sub_most": ["메르시", "루시우", "브리기테"],
+      "note": "",
+      "order": 4
+    }
+  },
+  {
+    "model": "overwatch.streamer",
+    "pk": 5,
+    "fields": {
+      "name": "방패친구",
+      "avatar": "🛡️",
+      "main_pos": "탱커",
+      "main_tier": "중2",
+      "main_most": ["오리사", "자리야", "로드호그"],
+      "sub_pos": "힐러",
+      "sub_tier": "중1",
+      "sub_most": ["키리코", "모이라", "루시우"],
+      "note": "",
+      "order": 5
+    }
+  },
+  {
+    "model": "overwatch.streamer",
+    "pk": 6,
+    "fields": {
+      "name": "쾌속딜러",
+      "avatar": "🎯",
+      "main_pos": "딜러",
+      "main_tier": "중1",
+      "main_most": ["트레이서", "소전", "정크랫"],
+      "sub_pos": "탱커",
+      "sub_tier": "중1",
+      "sub_most": ["디바", "윈스턴", "시그마"],
+      "note": "",
+      "order": 6
+    }
+  }
+]
