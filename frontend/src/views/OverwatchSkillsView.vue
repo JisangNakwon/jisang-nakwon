@@ -40,7 +40,6 @@
 
       <!-- 테이블 헤더 -->
       <div class="list-header">
-        <div class="col-avatar"></div>
         <div class="col-name">스트리머</div>
         <div class="col-grade sortable" @click="toggleSort('tier')">
           티어 <span class="sort-icon">{{ sortIcon('tier') }}</span>
@@ -62,11 +61,6 @@
           :key="streamer.name"
           class="streamer-row"
         >
-          <!-- 아바타 -->
-          <div class="col-avatar">
-            <div class="row-avatar">{{ streamer.avatar }}</div>
-          </div>
-
           <!-- 이름 -->
           <div class="col-name">
             <span class="row-name">{{ streamer.name }}</span>
@@ -145,15 +139,9 @@
         <div class="modal-body">
 
           <!-- 기본 정보 -->
-          <div class="form-grid-2">
-            <div class="form-field">
-              <label class="field-label">아바타</label>
-              <input v-model="form.avatar" class="form-input" placeholder="🎮" />
-            </div>
-            <div class="form-field">
-              <label class="field-label">이름 <span class="required">*</span></label>
-              <input v-model="form.name" class="form-input" placeholder="스트리머 이름 입력" />
-            </div>
+          <div class="form-field">
+            <label class="field-label">이름 <span class="required">*</span></label>
+            <input v-model="form.name" class="form-input" placeholder="스트리머 이름 입력" />
           </div>
 
           <!-- 주포지션 -->
@@ -257,7 +245,7 @@ const showModal  = ref(false)
 const editTarget = ref(null)   // null = 신규, object = 수정 대상
 
 const emptyForm = () => ({
-  name: '', avatar: '🎮',
+  name: '',
   mainPos: '딜러', mainTier: '측정중', mainMost: ['', '', ''],
   hasSubPos: false,
   subPos:  '힐러', subTier:  '측정중', subMost:  ['', '', ''],
@@ -274,7 +262,7 @@ const openAdd = () => {
 const openEdit = (s) => {
   editTarget.value = s
   form.value = {
-    name: s.name, avatar: s.avatar,
+    name: s.name,
     mainPos: s.mainPos, mainTier: s.mainTier, mainMost: [...s.mainMost],
     hasSubPos: !!s.subPos,
     subPos:  s.subPos  || '힐러', subTier: s.subTier || '측정중', subMost: [...s.subMost],
@@ -285,7 +273,7 @@ const openEdit = (s) => {
 
 const saveForm = async () => {
   const payload = {
-    name: form.value.name, avatar: form.value.avatar,
+    name: form.value.name,
     mainPos: form.value.mainPos, mainTier: form.value.mainTier, mainMost: form.value.mainMost,
     subPos:  form.value.hasSubPos ? form.value.subPos  : '',
     subTier: form.value.hasSubPos ? form.value.subTier : '',
@@ -408,7 +396,6 @@ const posIcon    = (p) => ({ '딜러':'⚔️','탱커':'🛡️','힐러':'💊
 .filter-result { font-size:0.8rem; color:rgba(255,255,255,0.3); }
 
 /* ── 테이블 레이아웃 ── */
-.col-avatar    { width: 48px;  flex-shrink: 0; }
 .col-name      { width: 110px; flex-shrink: 0; }
 .col-grade     { width: 64px;  flex-shrink: 0; }
 .col-pos-group { flex: 1; min-width: 130px; display: flex; flex-direction: column; gap: 6px; align-items: center; }
@@ -463,14 +450,6 @@ const posIcon    = (p) => ({ '딜러':'⚔️','탱커':'🛡️','힐러':'💊
   border-color: rgba(249,158,26,0.35);
   background: linear-gradient(145deg, #1e2438, #181e2e);
   transform: translateX(4px);
-}
-
-.row-avatar {
-  width: 38px; height: 38px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
 }
 
 .row-name {
