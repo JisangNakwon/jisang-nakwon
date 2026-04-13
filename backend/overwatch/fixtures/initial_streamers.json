@@ -11,8 +11,7 @@
       "sub_pos": "힐러",
       "sub_tier": "고1",
       "sub_most": ["아나", "키리코", "모이라"],
-      "note": "",
-      "order": 1
+      "note": ""
     }
   },
   {
@@ -27,8 +26,7 @@
       "sub_pos": "딜러",
       "sub_tier": "중3",
       "sub_most": ["파라", "애쉬", "리퍼"],
-      "note": "",
-      "order": 2
+      "note": ""
     }
   },
   {
@@ -43,8 +41,7 @@
       "sub_pos": "딜러",
       "sub_tier": "고2",
       "sub_most": ["에코", "소전", "겐지"],
-      "note": "",
-      "order": 3
+      "note": ""
     }
   },
   {
@@ -59,8 +56,7 @@
       "sub_pos": "힐러",
       "sub_tier": "중2",
       "sub_most": ["메르시", "루시우", "브리기테"],
-      "note": "",
-      "order": 4
+      "note": ""
     }
   },
   {
@@ -75,8 +71,7 @@
       "sub_pos": "힐러",
       "sub_tier": "중1",
       "sub_most": ["키리코", "모이라", "루시우"],
-      "note": "",
-      "order": 5
+      "note": ""
     }
   },
   {
@@ -91,8 +86,7 @@
       "sub_pos": "탱커",
       "sub_tier": "중1",
       "sub_most": ["디바", "윈스턴", "시그마"],
-      "note": "",
-      "order": 6
+      "note": ""
     }
   }
 ]
