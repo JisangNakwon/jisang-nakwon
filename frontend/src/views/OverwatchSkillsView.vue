@@ -143,33 +143,49 @@
           <button class="modal-close" @click="showModal = false">✕</button>
         </div>
         <div class="modal-body">
-          <div class="form-row">
-            <label>아바타</label>
-            <input v-model="form.avatar" class="form-input narrow" placeholder="🎮" />
-            <label style="margin-left:12px">이름</label>
-            <input v-model="form.name" class="form-input" placeholder="스트리머 이름" />
+
+          <!-- 기본 정보 -->
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="field-label">아바타</label>
+              <input v-model="form.avatar" class="form-input" placeholder="🎮" />
+            </div>
+            <div class="form-field">
+              <label class="field-label">이름 <span class="required">*</span></label>
+              <input v-model="form.name" class="form-input" placeholder="스트리머 이름 입력" />
+            </div>
           </div>
 
+          <!-- 주포지션 -->
           <div class="form-section-title">주포지션</div>
-          <div class="form-row">
-            <label>포지션</label>
-            <select v-model="form.mainPos" class="form-select">
-              <option>딜러</option><option>탱커</option><option>힐러</option>
-            </select>
-            <label>티어</label>
-            <select v-model="form.mainTier" class="form-select">
-              <option>측정중</option>
-              <option>중1</option><option>중2</option><option>중3</option>
-              <option>고1</option><option>고2</option><option>고3</option>
-            </select>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="field-label">포지션</label>
+              <select v-model="form.mainPos" class="form-select">
+                <option>딜러</option>
+                <option>탱커</option>
+                <option>힐러</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="field-label">티어</label>
+              <select v-model="form.mainTier" class="form-select">
+                <option>측정중</option>
+                <option>중1</option><option>중2</option><option>중3</option>
+                <option>고1</option><option>고2</option><option>고3</option>
+              </select>
+            </div>
           </div>
-          <div class="form-row">
-            <label>모스트</label>
-            <input v-model="form.mainMost[0]" class="form-input" placeholder="1순위" />
-            <input v-model="form.mainMost[1]" class="form-input" placeholder="2순위" />
-            <input v-model="form.mainMost[2]" class="form-input" placeholder="3순위" />
+          <div class="form-field">
+            <label class="field-label">모스트 픽</label>
+            <div class="form-grid-3">
+              <input v-model="form.mainMost[0]" class="form-input" placeholder="1순위" />
+              <input v-model="form.mainMost[1]" class="form-input" placeholder="2순위" />
+              <input v-model="form.mainMost[2]" class="form-input" placeholder="3순위" />
+            </div>
           </div>
 
+          <!-- 보조포지션 -->
           <div class="form-section-title">
             보조포지션
             <label class="sub-toggle">
@@ -178,30 +194,40 @@
             </label>
           </div>
           <template v-if="form.hasSubPos">
-            <div class="form-row">
-              <label>포지션</label>
-              <select v-model="form.subPos" class="form-select">
-                <option>딜러</option><option>탱커</option><option>힐러</option>
-              </select>
-              <label>티어</label>
-              <select v-model="form.subTier" class="form-select">
-                <option>측정중</option>
-                <option>중1</option><option>중2</option><option>중3</option>
-                <option>고1</option><option>고2</option><option>고3</option>
-              </select>
+            <div class="form-grid-2">
+              <div class="form-field">
+                <label class="field-label">포지션</label>
+                <select v-model="form.subPos" class="form-select">
+                  <option>딜러</option>
+                  <option>탱커</option>
+                  <option>힐러</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label class="field-label">티어</label>
+                <select v-model="form.subTier" class="form-select">
+                  <option>측정중</option>
+                  <option>중1</option><option>중2</option><option>중3</option>
+                  <option>고1</option><option>고2</option><option>고3</option>
+                </select>
+              </div>
             </div>
-            <div class="form-row">
-              <label>모스트</label>
-              <input v-model="form.subMost[0]" class="form-input" placeholder="1순위" />
-              <input v-model="form.subMost[1]" class="form-input" placeholder="2순위" />
-              <input v-model="form.subMost[2]" class="form-input" placeholder="3순위" />
+            <div class="form-field">
+              <label class="field-label">모스트 픽</label>
+              <div class="form-grid-3">
+                <input v-model="form.subMost[0]" class="form-input" placeholder="1순위" />
+                <input v-model="form.subMost[1]" class="form-input" placeholder="2순위" />
+                <input v-model="form.subMost[2]" class="form-input" placeholder="3순위" />
+              </div>
             </div>
           </template>
 
-          <div class="form-row">
-            <label>비고</label>
-            <input v-model="form.note" class="form-input" placeholder="메모" />
+          <!-- 비고 -->
+          <div class="form-field">
+            <label class="field-label">비고</label>
+            <input v-model="form.note" class="form-input" placeholder="메모 (선택)" />
           </div>
+
         </div>
         <div class="modal-footer">
           <button class="btn-cancel" @click="showModal = false">취소</button>
@@ -620,14 +646,14 @@ const posIcon    = (p) => ({ '딜러':'⚔️','탱커':'🛡️','힐러':'💊
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.35);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 6px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding-top: 10px;
+  letter-spacing: 0.8px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 14px;
 }
 .sub-toggle {
   display: flex;
@@ -642,47 +668,68 @@ const posIcon    = (p) => ({ '딜러':'⚔️','탱커':'🛡️','힐러':'💊
 }
 .sub-toggle input[type="checkbox"] { cursor: pointer; accent-color: #f99e1a; }
 
-.form-row {
-  display: flex;
-  align-items: center;
+/* 그리드 레이아웃 */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
-  flex-wrap: wrap;
 }
 
-.form-row label {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.4);
-  min-width: 36px;
-  flex-shrink: 0;
+/* 개별 필드 */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
+
+.field-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.3px;
+}
+.required { color: #f99e1a; }
 
 .form-input {
-  flex: 1;
-  min-width: 80px;
-  padding: 6px 10px;
-  border-radius: 6px;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.06);
   color: #fff;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, background 0.15s;
+  box-sizing: border-box;
 }
-.form-input.narrow { flex: 0; width: 56px; min-width: 56px; }
-.form-input:focus { border-color: rgba(249,158,26,0.5); }
+.form-input::placeholder { color: rgba(255,255,255,0.2); }
+.form-input:focus {
+  border-color: rgba(249,158,26,0.6);
+  background: rgba(249,158,26,0.04);
+}
 
 .form-select {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: #2a3044;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: #1e2538;
   color: #fff;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
+  font-weight: 600;
   cursor: pointer;
   outline: none;
+  appearance: auto;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
 }
-.form-select:focus { border-color: rgba(249,158,26,0.5); }
-.form-select option { background: #2a3044; color: #fff; }
+.form-select:focus { border-color: rgba(249,158,26,0.6); }
+.form-select option { background: #1e2538; color: #fff; }
 
 .modal-footer {
   display: flex;
