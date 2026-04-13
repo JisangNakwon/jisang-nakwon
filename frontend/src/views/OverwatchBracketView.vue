@@ -64,7 +64,6 @@
         <div v-for="cfg in roleConfig" :key="cfg.key" class="role-inputs">
           <div class="role-input-header">
             <span :class="['role-badge', cfg.cls]">{{ cfg.icon }} {{ cfg.role }}</span>
-            <span class="role-total">팀당 {{ cfg.perTeam }}명 · {{ cfg.pairs }}쌍</span>
           </div>
 
           <!-- 쌍별 입력 -->
