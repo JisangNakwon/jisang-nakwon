@@ -60,7 +60,6 @@
       <!-- 참가자 입력 -->
       <div class="input-section mb-5">
         <h3 class="section-title">참가자 등록</h3>
-        <p class="pair-desc">같은 줄에 입력된 두 명은 실력이 비슷한 것으로 간주되어 <strong>항상 다른 팀</strong>에 배정됩니다.</p>
 
         <div v-for="cfg in roleConfig" :key="cfg.key" class="role-inputs">
           <div class="role-input-header">
