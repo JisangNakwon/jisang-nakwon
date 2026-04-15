@@ -311,6 +311,7 @@ const schoolFilters = [
   { value: '전체',     label: '전체',     cls: 'btn-all' },
   { value: '중학교',   label: '중학교',   cls: 'btn-mid' },
   { value: '고등학교', label: '고등학교', cls: 'btn-high' },
+  { value: '측정중',   label: '측정중',   cls: 'btn-tbd' },
 ]
 
 const midGrades  = ['중1', '중2', '중3']
@@ -339,7 +340,8 @@ const sortedStreamers = computed(() => {
     const schoolMatch =
       selectedSchool.value === '전체'    ? true :
       selectedSchool.value === '중학교'  ? midGrades.includes(s.mainTier) :
-      highGrades.includes(s.mainTier)
+      selectedSchool.value === '고등학교' ? highGrades.includes(s.mainTier) :
+      s.mainTier === '측정중'
     return posMatch && subPosMatch && schoolMatch
   })
 
@@ -392,6 +394,7 @@ const posIcon    = (p) => ({ '딜러':'⚔️','탱커':'🛡️','힐러':'💊
 .filter-btn.btn-healer.active { background:rgba(76,175,130,0.25);  border-color:#5dcf9e; color:#5dcf9e; }
 .filter-btn.btn-mid.active    { background:rgba(100,200,220,0.2);  border-color:#64c8dc; color:#64c8dc; }
 .filter-btn.btn-high.active   { background:rgba(249,158,26,0.2);   border-color:#f99e1a; color:#f99e1a; }
+.filter-btn.btn-tbd.active    { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.35); color:rgba(255,255,255,0.7); }
 
 .filter-result { font-size:0.8rem; color:rgba(255,255,255,0.3); }
 
