@@ -399,7 +399,7 @@ const mapCategories = ref([
   { name: '쟁탈',       enabled: true, maps: ['네팔','리장 타워','부산','사모아','오아시스','일리오스'].map(n=>({name:n,excluded:false})) },
   { name: '호위',       enabled: true, maps: ['66번 국도','지브롤터','도라도','리알토','삼발리 수도원','서킷 로얄','쓰레기촌','하바나'].map(n=>({name:n,excluded:false})) },
   { name: '혼합',       enabled: true, maps: ['눔바니','미드타운','블리자드 월드','아이헨발데','왕의 길','파라이수','할리우드'].map(n=>({name:n,excluded:false})) },
-  { name: '밀기',       enabled: true, maps: ['뉴 퀸 스트리트','이스페란사','콜로세오','루나사피'].map(n=>({name:n,excluded:false})) },
+  { name: '밀기',       enabled: true, maps: ['뉴 퀸 스트리트','루나사피','이스페란사','콜로세오'].map(n=>({name:n,excluded:false})) },
   { name: '플래시포인트', enabled: true, maps: ['뉴 정크 시티','수라바사','아틀리스'].map(n=>({name:n,excluded:false})) },
   { name: '점령',       enabled: true, maps: ['볼스카야 인더스트리','아누비스 신전','파리','하나무라','호라이즌 달 기지'].map(n=>({name:n,excluded:false})) },
 ])

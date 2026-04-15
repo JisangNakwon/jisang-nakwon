@@ -126,9 +126,9 @@ const categories = ref([
     enabled: true,
     maps: [
       { name: '뉴 퀸 스트리트', mz: false, excluded: false },
+      { name: '루나사피',       mz: false, excluded: false },
       { name: '이스페란사',     mz: true,  excluded: false },
       { name: '콜로세오',       mz: true,  excluded: false },
-      { name: '루나사피',       mz: false, excluded: false },
     ],
   },
   {
