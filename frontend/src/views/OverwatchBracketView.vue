@@ -2,7 +2,7 @@
   <div class="bracket-page">
 
     <!-- 사이드바 토글 탭 -->
-    <button class="sidebar-tab" :class="{ open: sidebarOpen }" @click="sidebarOpen = !sidebarOpen">
+    <button class="sidebar-tab" :class="{ open: sidebarOpen }" @click="sidebarOpen = !sidebarOpen; selectedStreamer = null">
       <span class="sidebar-tab-icon">{{ sidebarOpen ? '▶' : '◀' }}</span>
       <span class="sidebar-tab-text">티어표</span>
     </button>
@@ -41,28 +41,92 @@
         <!-- 결과 수 -->
         <div class="sidebar-count">{{ filteredSideStreamers.length }}명</div>
 
-        <!-- 스트리머 목록 -->
-        <div class="sidebar-list">
-          <div
-            v-for="s in filteredSideStreamers"
-            :key="s.name"
-            class="sidebar-streamer-row"
-          >
-            <span class="sb-name">{{ s.name }}</span>
-            <div class="sb-badges">
-              <span :class="['sb-pos', posClass(s.mainPos)]">{{ posIcon(s.mainPos) }}</span>
-              <span :class="['sb-tier', gradeClass(s.mainTier)]">{{ s.mainTier }}</span>
-              <template v-if="s.subPos">
-                <span class="sb-sep">·</span>
-                <span :class="['sb-pos sb-sub', posClass(s.subPos)]">{{ posIcon(s.subPos) }}</span>
-                <span :class="['sb-tier', gradeClass(s.subTier)]">{{ s.subTier }}</span>
-              </template>
+        <!-- 스트리머 목록 / 상세 -->
+        <transition name="detail-slide" mode="out-in">
+
+          <!-- 상세 보기 -->
+          <div v-if="selectedStreamer" key="detail" class="sidebar-detail">
+            <button class="detail-back" @click="selectedStreamer = null">← 목록으로</button>
+            <div class="detail-name">{{ selectedStreamer.name }}</div>
+
+            <!-- 주포지션 -->
+            <div class="detail-section">
+              <div class="detail-section-label">주포지션</div>
+              <div class="detail-pos-row">
+                <span :class="['detail-pos-tag', posClass(selectedStreamer.mainPos)]">
+                  {{ posIcon(selectedStreamer.mainPos) }} {{ selectedStreamer.mainPos }}
+                </span>
+                <span :class="['detail-tier', gradeClass(selectedStreamer.mainTier)]">
+                  {{ selectedStreamer.mainTier }}
+                </span>
+              </div>
+              <div v-if="selectedStreamer.mainMost?.filter(m=>m).length" class="detail-most">
+                <span class="detail-most-label">모스트</span>
+                <div class="detail-most-list">
+                  <span
+                    v-for="(champ, i) in selectedStreamer.mainMost.filter(m=>m)"
+                    :key="i"
+                    class="detail-most-chip"
+                  >{{ i+1 }}. {{ champ }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 보조포지션 -->
+            <div v-if="selectedStreamer.subPos" class="detail-section">
+              <div class="detail-section-label">보조포지션</div>
+              <div class="detail-pos-row">
+                <span :class="['detail-pos-tag detail-pos-sub', posClass(selectedStreamer.subPos)]">
+                  {{ posIcon(selectedStreamer.subPos) }} {{ selectedStreamer.subPos }}
+                </span>
+                <span :class="['detail-tier', gradeClass(selectedStreamer.subTier)]">
+                  {{ selectedStreamer.subTier }}
+                </span>
+              </div>
+              <div v-if="selectedStreamer.subMost?.filter(m=>m).length" class="detail-most">
+                <span class="detail-most-label">모스트</span>
+                <div class="detail-most-list">
+                  <span
+                    v-for="(champ, i) in selectedStreamer.subMost.filter(m=>m)"
+                    :key="i"
+                    class="detail-most-chip"
+                  >{{ i+1 }}. {{ champ }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 비고 -->
+            <div v-if="selectedStreamer.note" class="detail-section">
+              <div class="detail-section-label">비고</div>
+              <div class="detail-note">{{ selectedStreamer.note }}</div>
             </div>
           </div>
-          <div v-if="filteredSideStreamers.length === 0" class="sidebar-empty">
-            해당 조건의 스트리머 없음
+
+          <!-- 목록 -->
+          <div v-else key="list" class="sidebar-list">
+            <div
+              v-for="s in filteredSideStreamers"
+              :key="s.name"
+              class="sidebar-streamer-row"
+              @click="selectedStreamer = s"
+            >
+              <span class="sb-name">{{ s.name }}</span>
+              <div class="sb-badges">
+                <span :class="['sb-pos', posClass(s.mainPos)]">{{ posIcon(s.mainPos) }}</span>
+                <span :class="['sb-tier', gradeClass(s.mainTier)]">{{ s.mainTier }}</span>
+                <template v-if="s.subPos">
+                  <span class="sb-sep">·</span>
+                  <span :class="['sb-pos sb-sub', posClass(s.subPos)]">{{ posIcon(s.subPos) }}</span>
+                  <span :class="['sb-tier', gradeClass(s.subTier)]">{{ s.subTier }}</span>
+                </template>
+              </div>
+            </div>
+            <div v-if="filteredSideStreamers.length === 0" class="sidebar-empty">
+              해당 조건의 스트리머 없음
+            </div>
           </div>
-        </div>
+
+        </transition>
       </div>
     </transition>
 
@@ -428,7 +492,8 @@ const recommendMap = () => {
 }
 
 /* ── 스트리머 사이드바 ── */
-const sidebarOpen     = ref(false)
+const sidebarOpen      = ref(false)
+const selectedStreamer = ref(null)
 const sideSearch      = ref('')
 const sidePosFilter   = ref('전체')
 const sideSchoolFilter = ref('전체')
@@ -674,6 +739,96 @@ const filteredSideStreamers = computed(() => {
   padding: 30px 16px;
   font-size: 0.82rem;
   color: rgba(255,255,255,0.25);
+}
+
+/* ── 상세 뷰 ── */
+.detail-slide-enter-active,
+.detail-slide-leave-active { transition: opacity 0.18s, transform 0.18s; }
+.detail-slide-enter-from { opacity: 0; transform: translateX(16px); }
+.detail-slide-leave-to   { opacity: 0; transform: translateX(-16px); }
+
+.sidebar-detail {
+  padding: 12px 14px;
+  overflow-y: auto;
+  flex: 1;
+}
+.detail-back {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 0 12px;
+  display: block;
+  transition: color 0.15s;
+}
+.detail-back:hover { color: #fff; }
+
+.detail-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.detail-section {
+  margin-bottom: 16px;
+}
+.detail-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 7px;
+}
+.detail-pos-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.detail-pos-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.detail-pos-tag.dps    { background:rgba(255,107,53,0.2);  color:#ff8c5a; border:1px solid rgba(255,107,53,0.35); }
+.detail-pos-tag.tank   { background:rgba(91,133,232,0.2);  color:#7da0f0; border:1px solid rgba(91,133,232,0.35); }
+.detail-pos-tag.healer { background:rgba(76,175,130,0.2);  color:#5dcf9e; border:1px solid rgba(76,175,130,0.35); }
+.detail-pos-tag.detail-pos-sub { opacity: 0.75; }
+
+.detail-tier {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+
+.detail-most { display: flex; align-items: flex-start; gap: 8px; }
+.detail-most-label {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  white-space: nowrap;
+  padding-top: 3px;
+}
+.detail-most-list { display: flex; flex-direction: column; gap: 3px; }
+.detail-most-chip {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.detail-note {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
 }
 
 /* ── 매치 타입 ── */
